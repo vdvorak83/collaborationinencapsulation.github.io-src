@@ -16,10 +16,10 @@ module.exports = task('deploy', () => {
     .then(() =>
       new Promise((r, rj) => fs.writeFile(
         credentialsFilename,
-        `https://r8SzqHZphMSy59xwG9p9:@github.com/${repo}.git`,
+        `https://${process.env.GITHUB_TOKEN}:@github.com/${repo}.git`,
         (e) => e ? rj(e) : r()
       )).then(() => git
-        .addConfig('credential.username', 'r8SzqHZphMSy59xwG9p9')
+        .addConfig('credential.username', process.env.GITHUB_TOKEN)
         .addConfig('credential.helper', 'store')
         .fetch('origin', 'master')
         .reset('hard FETCH_HEAD')
