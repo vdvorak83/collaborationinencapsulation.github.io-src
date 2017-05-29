@@ -1,12 +1,17 @@
 const path = require('path');
 const task = require('./task');
 const build = require('./build');
+const rimraf = require('rimraf');
 const git = require('simple-git')(path.resolve('./public'));
 const fs = require('fs');
 
 module.exports = task('deploy', () => {
   const repo = 'CollaborationInEncapsulation/collaborationinencapsulation.github.io';
   const credentialsFilename = path.resolve(process.env.HOME, '.git-credentials');
+  rimraf.sync('public/*', {
+    nosort: true,
+    dot: true
+  });
 
   return git
     .init()
