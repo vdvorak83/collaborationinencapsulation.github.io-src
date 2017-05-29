@@ -1,0 +1,57 @@
+/**
+* React Static Boilerplate
+* https://github.com/kriasoft/react-static-boilerplate
+*
+* Copyright © 2015-present Kriasoft, LLC. All rights reserved.
+*
+* This source code is licensed under the MIT license found in the
+* LICENSE.txt file in the root directory of this source tree.
+*/
+
+.header {
+  position: relative;
+}
+
+.row {
+  padding: 40px;
+  position: absolute;
+  background-color: rgba(0, 47, 70, 0.5);
+}
+
+.title {
+  color: #fff;
+  text-decoration: none;
+}
+
+.name {
+  font-size: 7em;
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  background-color: rgba(0, 47, 70, 0.5);
+}
+
+.header::after {
+  content: ' ';
+  display: block;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    display: flex;
+  }
+  .row {
+    padding: 0 16px;
+  }
+}
