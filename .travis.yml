@@ -17,7 +17,7 @@ deploy:
   skip_cleanup: true
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
   local_dir: ./public
-  repo: git@github.com:CollaborationInEncapsulation/collaborationinencapsulation.github.io.git
+  repo: ssh://git@github.com:CollaborationInEncapsulation/collaborationinencapsulation.github.io
   target_branch: master
   on:
     branch: master
