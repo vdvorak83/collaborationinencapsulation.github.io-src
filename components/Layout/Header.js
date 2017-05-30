@@ -36,7 +36,7 @@ class Header extends React.Component {
           <div className="mdl-layout-spacer" />
           <Navigation />
         </div>
-        <img className={s.img} src={'header_bg.jpg'} />
+        <img className={s.img} src={'header_bg.jpg'} alt="header background" />
       </header>
     );
   }
