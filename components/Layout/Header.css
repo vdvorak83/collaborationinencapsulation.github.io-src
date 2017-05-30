@@ -10,6 +10,8 @@
 
 .header {
   position: relative;
+  overflow-y: hidden;
+  max-height: initial;
 }
 
 .row {

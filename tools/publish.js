@@ -1,46 +1,38 @@
 const path = require('path');
-const Git = require('nodegit');
-const build = require('./build');
 const task = require('./task');
-const config = require('./config');
+const build = require('./build');
+const rimraf = require('rimraf');
+const git = require('simple-git')(path.resolve('./public'));
+const fs = require('fs');
 
+module.exports = task('deploy', () => {
+  const repo = 'CollaborationInEncapsulation/collaborationinencapsulation.github.io';
+  const credentialsFilename = path.resolve(process.env.HOME, '.git-credentials');
+  rimraf.sync('public/*', { nosort: true, dot: true });
 
-
-module.exports = task('publish', () => {
-  const remote = {
-    url: 'https://github.com/CollaborationInEncapsulation/collaborationinencapsulation.github.io.git', // TODO: Update deployment URL
-    branch: 'master',
-  };
-  global.DEBUG = process.argv.includes('--debug') || false;
-  const spawn = require('child_process').spawn;
-  const pathToRepo = path.resolve(__dirname, './public');
-  const git = (...args) => new Promise((resolve, reject) => {
-    spawn('git', args, opts).on('close', code => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`git ${args.join(' ')} => ${code} (error)`));
-      }
-    });
-  });
-
-  return Promise.resolve()
-    .then(() => Git.Repository.init(pathToRepo, 0)
-    // .then(() => git('config', '--get', 'remote.origin.url')
-    //   .then(() => git('remote', 'set-url', 'origin', remote.url))
-    //   .catch(() => git('remote', 'add', 'origin', remote.url))
-    // )
-    // .then(() => git('ls-remote', '--exit-code', remote.url, 'master')
-    //   .then(() => Promise.resolve()
-    //     .then(() => git('fetch', 'origin'))
-    //     .then(() => git('reset', `origin/${remote.branch}`, '--hard'))
-    //     .then(() => git('clean', '--force'))
-    //   )
-    //   .catch(() => Promise.resolve())
-    // )
-    // .then(() => build())
-    // .then(() => git('add', '.', '--all'))
-    // .then(() => git('commit', '--message', new Date().toUTCString())
-    // .catch(() => Promise.resolve()))
-    // .then(() => git('push', 'origin', `HEAD:${remote.branch}`, '--force', '--set-upstream'));
+  return git
+    .init()
+    .addRemote('origin', `https://github.com/${repo}.git`)
+    .addConfig('user.name', 'Deployment Bot')
+    .addConfig('user.email', 'deploy@travis-ci.org')
+    .then(() =>
+      new Promise((r, rj) => fs.writeFile(
+        credentialsFilename,
+        `https://${process.env.GITHUB_TOKEN}:@github.com/${repo}.git`,
+        (e) => {
+          if (e) {
+            rj(e);
+          }
+          r();
+        })).then(() => git
+        .addConfig('credential.username', process.env.GITHUB_TOKEN)
+        .addConfig('credential.helper', 'store')
+        .fetch('origin', 'master')
+        .reset('hard FETCH_HEAD')
+        .pull('origin', 'master')
+        .then(() => build().then(() => git
+          .add('dist/*')
+          .add('./*')
+          .commit(`${Date.now()}`)
+          .push('origin', 'master')))));
 });

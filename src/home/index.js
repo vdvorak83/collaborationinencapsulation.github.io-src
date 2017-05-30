@@ -9,9 +9,12 @@
  */
 
 import React, { PropTypes } from 'react';
-import { Grid, Cell, Card, CardTitle, CardText, CardMenu, CardActions, Button, IconButton } from 'react-mdl';
+import { Grid, Cell } from 'react-mdl';
+import chunk from 'lodash.chunk';
 import Layout from '../../components/Layout';
+import Keynote from '../../components/Keynote';
 import s from './styles.css';
+import Posts from '../posts';
 import { title, html } from './index.md';
 
 class HomePage extends React.Component {
@@ -36,24 +39,18 @@ class HomePage extends React.Component {
           dangerouslySetInnerHTML={{ __html: html }}
         />
         <h4>Keynotes</h4>
-        <Grid className="demo-grid-ruler">
-          <Cell col={6}>
-            <Card shadow={0} >
-              <CardTitle style={{ color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover' }}>Welcome</CardTitle>
-              <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Mauris sagittis pellentesque lacus eleifend lacinia...
-              </CardText>
-              <CardActions border>
-                <Button colored>More</Button>
-              </CardActions>
-              <CardMenu style={{ color: '#fff' }}>
-                <IconButton name="share" />
-              </CardMenu>
-            </Card>
-          </Cell>
-        </Grid>
 
+        <Grid className="demo-grid-ruler">
+          {
+            chunk(Posts.list(), 2).map(ck =>
+              (
+                <Cell col={6}>
+                  {ck.map(post => <Keynote post={post} />)}
+                </Cell>
+              ),
+            )
+          }
+        </Grid>
         <p>
           <br /><br />
         </p>
