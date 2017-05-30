@@ -8,10 +8,7 @@ const fs = require('fs');
 module.exports = task('deploy', () => {
   const repo = 'CollaborationInEncapsulation/collaborationinencapsulation.github.io';
   const credentialsFilename = path.resolve(process.env.HOME, '.git-credentials');
-  rimraf.sync('public/*', {
-    nosort: true,
-    dot: true
-  });
+  rimraf.sync('public/*', { nosort: true, dot: true });
 
   return git
     .init()
@@ -22,8 +19,12 @@ module.exports = task('deploy', () => {
       new Promise((r, rj) => fs.writeFile(
         credentialsFilename,
         `https://${process.env.GITHUB_TOKEN}:@github.com/${repo}.git`,
-        (e) => e ? rj(e) : r()
-      )).then(() => git
+        (e) => {
+          if (e) {
+            rj(e);
+          }
+          r();
+        })).then(() => git
         .addConfig('credential.username', process.env.GITHUB_TOKEN)
         .addConfig('credential.helper', 'store')
         .fetch('origin', 'master')
