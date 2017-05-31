@@ -8,12 +8,16 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navigation from './Navigation';
 import Link from '../Link';
 import s from './Header.css';
 
 class Header extends React.Component {
+  static propTypes = {
+    background: PropTypes.string,
+    title: PropTypes.string,
+  }
 
   componentDidMount() {
     window.componentHandler.upgradeElement(this.root);
@@ -24,11 +28,20 @@ class Header extends React.Component {
   }
 
   render() {
+    const { title, background } = this.props;
+
     return (
-      <header className={`mdl-layout__header mdl-layout__header--scroll ${s.header}`} ref={node => (this.root = node)}>
-        <h1 className={s.name}>
-          Collaboration in Encapsulation
-        </h1>
+      <header
+        className={`mdl-layout__header mdl-layout__header--scroll ${s.header} ${background ? s.banner : ''}`} ref={node => (this.root = node)}
+        style={{ background: this.props.background }}
+      >
+        {
+          title && (
+            <h1 className={s.name}>
+              {title}
+            </h1>
+          )
+        }
         <div className={`mdl-layout__header-row ${s.row}`}>
           <Link className={`mdl-layout-title ${s.title}`} to="/">
             coinen.io
@@ -36,7 +49,6 @@ class Header extends React.Component {
           <div className="mdl-layout-spacer" />
           <Navigation />
         </div>
-        <img className={s.img} src={'header_bg.jpg'} alt="header background" />
       </header>
     );
   }

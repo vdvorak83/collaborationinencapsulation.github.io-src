@@ -1,5 +1,6 @@
 ---
-title: React Static Boilerplate
+title: Collaboration In Encapsulation
+banner: header_bg.jpg
 ---
 
 ## Welcome!

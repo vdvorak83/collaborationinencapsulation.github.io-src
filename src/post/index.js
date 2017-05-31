@@ -8,18 +8,27 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Layout from '../../components/Layout';
 import s from './styles.css';
-import { title, html } from './index.md';
 
-class AboutPage extends React.Component {
+class Post extends React.Component {
+  static propTypes = {
+    file: PropTypes.string,
+    html: PropTypes.string,
+    title: PropTypes.string,
+    banner: PropTypes.string,
+    description: PropTypes.string,
+    tags: PropTypes.string,
+  };
 
   componentDidMount() {
-    document.title = title;
+    document.title = this.props.title;
   }
 
   render() {
+    const { file, html, title, banner, tags } = this.props;
+    const 
     return (
       <Layout className={s.content}>
         <h1>{title}</h1>
@@ -33,4 +42,4 @@ class AboutPage extends React.Component {
 
 }
 
-export default AboutPage;
+export default Post;

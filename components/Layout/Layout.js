@@ -18,6 +18,10 @@ class Layout extends React.Component {
 
   static propTypes = {
     className: PropTypes.string,
+    header: PropTypes.shape({
+      background: PropTypes.string,
+      title: PropTypes.string,
+    }),
   };
 
   componentDidMount() {
@@ -32,11 +36,11 @@ class Layout extends React.Component {
     return (
       <div className="mdl-layout mdl-js-layout" ref={node => (this.root = node)}>
         <div className="mdl-layout__inner-container">
-          <Header />
+          <Header {...this.props.header} />
           <main className={`mdl-layout__content ${s.main}`}>
             <div {...this.props} className={cx(s.content, this.props.className)} />
-            <Footer />
           </main>
+          <Footer />
         </div>
       </div>
     );

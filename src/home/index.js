@@ -15,7 +15,7 @@ import Layout from '../../components/Layout';
 import Keynote from '../../components/Keynote';
 import s from './styles.css';
 import Posts from '../posts';
-import { title, html } from './index.md';
+import { title, banner, html } from './index.md';
 
 class HomePage extends React.Component {
 
@@ -33,7 +33,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Layout className={s.content}>
+      <Layout className={s.content} header={{ background: `url(${banner}) center / cover`, title }}>
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: html }}

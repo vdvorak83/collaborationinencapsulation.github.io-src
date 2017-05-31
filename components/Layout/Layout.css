@@ -16,5 +16,6 @@
 }
 
 .main {
+  min-height: 100%;
   background-color: rgb(34, 69, 98);
 }

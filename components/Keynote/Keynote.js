@@ -1,14 +1,15 @@
 import { Card, CardTitle, CardText, CardMenu, CardActions, Button, IconButton, Chip } from 'react-mdl';
 import React, { PropTypes } from 'react';
+import Link from '../Link';
 import s from './Keynote.css';
 
 
 const Keynote = (props) => {
-  const { title, tags, description } = props.post;
+  const { file, title, tags, description, banner } = props.post;
 
   return (
     <Card shadow={1} className={s.card}>
-      <CardTitle style={{ color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover' }}>
+      <CardTitle style={{ color: '#fff', height: '176px', background: `rgb(0, 47, 70) url(${banner}) center / cover` }}>
         {title}
       </CardTitle>
       <CardText>
@@ -18,7 +19,7 @@ const Keynote = (props) => {
         {tags.split(/\s/).map(tag => <Chip onClick={() => { alert('Clicked!'); }}>{tag}</Chip>)}
       </CardText>
       <CardActions border>
-        <Button colored>More</Button>
+        <Link to={`/posts/${file}`}><Button ripple colored>More</Button></Link>
       </CardActions>
       <CardMenu style={{ color: '#fff' }}>
         <IconButton name="share" />
@@ -29,8 +30,10 @@ const Keynote = (props) => {
 
 Keynote.propTypes = {
   post: PropTypes.shape({
+    file: PropTypes.string,
     html: PropTypes.string,
-    title: PropTypes.number,
+    title: PropTypes.string,
+    banner: PropTypes.string,
     description: PropTypes.string,
     tags: PropTypes.string,
   }),
