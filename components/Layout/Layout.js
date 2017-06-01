@@ -8,7 +8,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Header from './Header';
 import Footer from '../Footer';
@@ -33,12 +34,14 @@ class Layout extends React.Component {
   }
 
   render() {
+    const { header, ...props } = this.props;
+
     return (
       <div className="mdl-layout mdl-js-layout" ref={node => (this.root = node)}>
         <div className="mdl-layout__inner-container">
-          <Header {...this.props.header} />
+          <Header {...header} />
           <main className={`mdl-layout__content ${s.main}`}>
-            <div {...this.props} className={cx(s.content, this.props.className)} />
+            <div {...props} className={cx(s.content, this.props.className)} />
           </main>
           <Footer />
         </div>

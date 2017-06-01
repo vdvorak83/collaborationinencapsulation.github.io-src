@@ -8,30 +8,27 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Layout from '../../components/Layout';
+import Posts from '../posts';
 import s from './styles.css';
+import history from '../history';
 
 class Post extends React.Component {
-  static propTypes = {
-    file: PropTypes.string,
-    html: PropTypes.string,
-    title: PropTypes.string,
-    banner: PropTypes.string,
-    description: PropTypes.string,
-    tags: PropTypes.string,
-  };
+  constructor() {
+    super();
 
+    this.state = Posts.find(/^\/posts\/(.*?)$/.exec(history.location.pathname)[1]);
+  }
   componentDidMount() {
-    document.title = this.props.title;
+    document.title = this.state.title;
   }
 
   render() {
-    const { file, html, title, banner, tags } = this.props;
-    const 
+    const { html, title, banner } = this.state;
+
     return (
-      <Layout className={s.content}>
-        <h1>{title}</h1>
+      <Layout className={s.content} header={{ background: `rgba(20, 67, 90, 0.3) url(${banner}) center / cover`, title }}>
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: html }}

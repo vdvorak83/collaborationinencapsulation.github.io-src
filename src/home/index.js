@@ -8,7 +8,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Cell } from 'react-mdl';
 import chunk from 'lodash.chunk';
 import Layout from '../../components/Layout';
@@ -39,18 +40,19 @@ class HomePage extends React.Component {
           dangerouslySetInnerHTML={{ __html: html }}
         />
         <h4>Keynotes</h4>
-
-        <Grid className="demo-grid-ruler">
-          {
-            chunk(Posts.list(), 2).map(ck =>
-              (
-                <Cell col={6}>
-                  {ck.map(post => <Keynote post={post} />)}
-                </Cell>
-              ),
-            )
-          }
-        </Grid>
+        {
+          chunk(Posts.list(), 2).map(ck =>
+            <Grid className="demo-grid-ruler" key={ck}>
+              {
+                ck.map(post =>
+                  <Cell col={6} key={post.file}>
+                    <Keynote post={post} key={post.file} />
+                  </Cell>,
+                )
+              }
+            </Grid>,
+          )
+        }
         <p>
           <br /><br />
         </p>

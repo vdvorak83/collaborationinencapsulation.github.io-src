@@ -17,7 +17,7 @@
     "page": "./about"
   },
   {
-    "path": "/posts/:name?",
+    "path": "/posts/:name",
     "page": "./post"
   }
 ]

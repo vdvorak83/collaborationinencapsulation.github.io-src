@@ -15,7 +15,6 @@ const webpack = require('webpack');
 const Browsersync = require('browser-sync');
 const task = require('./task');
 const config = require('./config');
-const path = require('path');
 
 global.HMR = !process.argv.includes('--no-hmr'); // Hot Module Replacement (HMR)
 

@@ -1,5 +1,6 @@
 import { Card, CardTitle, CardText, CardMenu, CardActions, Button, IconButton, Chip } from 'react-mdl';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Link from '../Link';
 import s from './Keynote.css';
 
@@ -16,7 +17,7 @@ const Keynote = (props) => {
         {description}
       </CardText>
       <CardText>
-        {tags.split(/\s/).map(tag => <Chip onClick={() => { alert('Clicked!'); }}>{tag}</Chip>)}
+        {tags.split(/\s/).map(tag => <Chip>{tag}</Chip>)}
       </CardText>
       <CardActions border>
         <Link to={`/posts/${file}`}><Button ripple colored>More</Button></Link>
