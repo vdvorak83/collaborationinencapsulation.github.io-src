@@ -19,6 +19,14 @@ class Post extends React.Component {
     super();
 
     this.state = Posts.find(/^\/posts\/(.*?)$/.exec(history.location.pathname)[1]);
+
+    if (!this.state) {
+      const error = new Error('Page not found');
+
+      error.status = 404;
+
+      throw error;
+    }
   }
   componentDidMount() {
     document.title = this.state.title;
