@@ -7,7 +7,7 @@ class Posts {
   }
 
   static find(name) {
-    return loaded.find(post => post.file.indexOf(name) > -1);
+    return loaded.find(post => post.file === name);
   }
 }
 
