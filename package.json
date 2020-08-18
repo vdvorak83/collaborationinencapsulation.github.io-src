@@ -15,7 +15,7 @@
     "prop-types": "^15.5.10",
     "react-dom": "^15.5.4",
     "react-mdl": "^1.10.3",
-    "react-redux": "^5.0.5",
+    "react-redux": "^5.1.2",
     "redux": "^3.6.0",
     "whatwg-fetch": "^2.0.3",
     "lodash.chunk": "^4.2.0"
