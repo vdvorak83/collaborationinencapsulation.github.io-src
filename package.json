@@ -10,7 +10,7 @@
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "fastclick": "^1.0.6",
-    "history": "^4.6.1",
+    "history": "^4.10.1",
     "react": "^15.5.4",
     "prop-types": "^15.5.10",
     "react-dom": "^15.5.4",
